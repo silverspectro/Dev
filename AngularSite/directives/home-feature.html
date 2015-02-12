@@ -1,0 +1,10 @@
+<div ng-show="site.isSelected(1)" class="container">
+  <h2>Welcome on my site</h2>
+  <p>here's a bunch a   newest articles</p>
+  <ul class="list-group">
+    <li class="list-group-item" ng-repeat="article in site.articles">
+      <h4><a href="#/articles/{{article.id}}">{{article.title}} </a> by -<small>{{article.author}}</small></h4>
+      <p>{{article.description}}</p>
+    </li>
+  </ul>
+</div>

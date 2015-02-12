@@ -13,26 +13,16 @@
 	</head>
 	<body ng-controller="SiteController as site">
 		<div class="container">
-			
 			<ul class="nav nav-tabs">
 				<li ng-repeat="nav in site.nav" ng-class="{ active:site.isSelected(nav.id) }"><a href="#" ng-click="site.selectTab(nav.id)">{{nav.name}}</a></li>
 			</ul>
-			
 		</div>
+		<home-feature></home-feature>
+		<div ng-view>
 
-		<article class="container" ng-show="site.isSelected(2)">
-			<div class="article" ng-repeat="article in site.articles">
-				<ul class="list-group">
-					<li class="list-group-item">
-						<h2><small>- {{article.id}} - </small>{{article.title}} by <small>{{article.author}}</small></h2>
-						<h5 style="color:grey;font-weight:300;font-style:italic;">{{article.description}}</h5>
-						<hr>
-						<p>{{article.body}}</p>
-					</li>
-				</ul>
-			</div>
-		</article>
-		<script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
-		<script type="text/javascript" src="app.js"></script>
+		</div>
+		<script type="text/javascript" src="bower_components/angular/angular.js"></script>
+		<script type="text/javascript" src="bower_components/angular/angular-route.min.js"></script>
+		<script type="text/javascript" src="js/app.js"></script>
 	</body>
 </html>
