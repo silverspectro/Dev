@@ -1,5 +1,5 @@
 <!doctype html>
-<html ng-app="store">
+<html ng-app="site">
 	<head>
 		<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
 		<style>
@@ -11,27 +11,28 @@
 		}
 		</style>
 	</head>
-	<body ng-controller="StoreController as store">
+	<body ng-controller="SiteController as site">
 		<div class="container">
+			
 			<ul class="nav nav-tabs">
-				<li ng-repeat="nav in store.nav" ng-class="{ active:store.isSelected(nav.id) }"><a href="#" ng-click="store.selectTab(nav.id)">{{nav.name}}</a></li>
+				<li ng-repeat="nav in site.nav" ng-class="{ active:site.isSelected(nav.id) }"><a href="#" ng-click="site.selectTab(nav.id)">{{nav.name}}</a></li>
 			</ul>
-			<div ng-show="store.isSelected(2)" ng-include="'Cheatsheet-Angular.html'"></div>
-			<ul ng-show="store.isSelected(1)" class="list-group">
-				<li class="list-group-item" ng-repeat="product in store.products | orderBy:'-price'" ng-hide="store.product.soldOut">
-
-					<product-gallery></product-gallery>
-
-					<product-title></product-title>	<!-- see app.js for custom directive definitions -->
-
-					<product-panels></product-panels>
-					
-					<button ng-show="product.canPurchase">Add to Cart</button>
-				</li>
-			</ul>
+			
 		</div>
+
+		<article class="container" ng-show="site.isSelected(2)">
+			<div class="article" ng-repeat="article in site.articles">
+				<ul class="list-group">
+					<li class="list-group-item">
+						<h2><small>- {{article.id}} - </small>{{article.title}} by <small>{{article.author}}</small></h2>
+						<h5 style="color:grey;font-weight:300;font-style:italic;">{{article.description}}</h5>
+						<hr>
+						<p>{{article.body}}</p>
+					</li>
+				</ul>
+			</div>
+		</article>
 		<script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
 		<script type="text/javascript" src="app.js"></script>
-		<script type="text/javascript" src="product.js"></script>
 	</body>
 </html>
