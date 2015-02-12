@@ -14,10 +14,9 @@
 	<body ng-controller="SiteController as site">
 		<div class="container">
 			<ul class="nav nav-tabs">
-				<li ng-repeat="nav in site.nav" ng-class="{ active:site.isSelected(nav.id) }"><a href="#" ng-click="site.selectTab(nav.id)">{{nav.name}}</a></li>
+				<li ng-repeat="nav in site.nav" ng-class="{ active:site.isSelected(nav.id) }"><a href="#/{{nav.name}}" ng-click="site.selectTab(nav.id)">{{nav.name}}</a></li>
 			</ul>
 		</div>
-		<home-feature></home-feature>
 		<div ng-view>
 
 		</div>

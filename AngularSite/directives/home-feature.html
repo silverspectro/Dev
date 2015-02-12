@@ -3,7 +3,7 @@
   <p>here's a bunch a   newest articles</p>
   <ul class="list-group">
     <li class="list-group-item" ng-repeat="article in site.articles">
-      <h4><a href="#/articles/{{article.id}}">{{article.title}} </a> by -<small>{{article.author}}</small></h4>
+      <h4><a ng-click="site.selectArticle(article.id)" href="#/articles/{{article.id}}">{{article.title}} </a> by -<small>{{article.author}}</small></h4>
       <p>{{article.description}}</p>
     </li>
   </ul>

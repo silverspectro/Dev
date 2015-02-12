@@ -11,12 +11,13 @@
 		site.articles = [ ];
 		site.articleId = 0;
 
-		site.articleId = $routeParams.id;
+		//if($routeParams)site.articleId = parseInt($routeParams.id);
 
 		console.log(site.articleId);
 
 		$http.get('http://localhost:8080/articles.json').success(function(articles){
 			site.articles = articles;
+			//if($routeParams)site.articleId = parseInt($routeParams.id);
 		});
 
 		this.selectTab = function(currentNav) {
@@ -25,6 +26,10 @@
 
 		this.isSelected = function(checkNav) {
 			return this.current === checkNav;
+		};
+
+		this.selectArticle = function(articleId) {
+			this.articleId = articleId;
 		};
 	} ]);
 
@@ -35,8 +40,20 @@ app.config(['$routeProvider',function($routeProvider) {
         templateUrl: 'directives/ind-article.html',
 				controller:"SiteController"
       }).
+			when('/', {
+				templateUrl: 'directives/home-feature.html',
+				controller:"SiteController"
+			}).
+			when('/Main', {
+				templateUrl: 'directives/home-feature.html',
+				controller:"SiteController"
+			}).
+			when('/Articles', {
+				templateUrl: 'directives/list-articles.html',
+				controller:"SiteController"
+			}).
       otherwise({
-        redirectTo: '	/'
+        redirectTo: '/'
       });
 			//$locationProvider.html5Mode(true);
   }]);
