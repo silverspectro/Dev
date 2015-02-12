@@ -1,0 +1,56 @@
+[
+  {
+    "name": "Dodecahedron",
+    "price": 2,
+    "description": "This gem is beautiful for what i know, but is it really worth a buy ?",
+    "canPurchase": true,
+    "soldOut": false,
+    "images": [
+      {
+        "full": "images/dodecahedron-01-full.jpg",
+        "thumb": "images/dodecahedron-01-thumb.jpg"
+      }
+    ],
+    "reviews": [
+      {
+        "stars": [
+          5
+        ],
+        "body": "I Love the Shine on this gem",
+        "author": "ciro@decaro.com",
+        "createdOn": 1397490980837
+      },
+      {
+        "stars": [
+          2
+        ],
+        "body": "And another review to test the repeat",
+        "author": "ciro@decaro.com",
+        "createdOn": 1397490980837
+      }
+    ]
+  },
+  {
+    "name": "Pentagonal Gem",
+    "price": 10.95,
+    "description": "This Gem is capable of a lot of things, including magic !",
+    "canPurchase": false,
+    "soldOut": false,
+    "images": [
+      {
+        "full": "images/pentagone-01-full.jpg",
+        "thumb": "images/pentagone-01-thumb.jpg"
+      }
+    ],
+    "reviews": [
+      {
+        "stars": [
+          3
+        ],
+        "body": "Prefere the other one of course",
+        "author": "ciro@decaro.com",
+        "createdOn": 1397490980837
+      }
+    ]
+  }
+]

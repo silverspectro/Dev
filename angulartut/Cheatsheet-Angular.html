@@ -1,0 +1,77 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Cheatsheet-Angular.md</title></head><body>
+<h1 id="cheatsheet-angular">Cheatsheet Angular</h1>
+<p>Scope in the HTML file are defined by the closing tag of the tag in whiwh the expression has been declared</p>
+<h2 id="html">HTML</h2>
+<p>ng- -&gt; specify a Directive for Angular to follow</p>
+<p>ng-<em>something</em> = &quot; some controller &quot; -&gt; specify wich directive to apply in relation to a controller, and/or a object from the controller</p>
+<h3 id="list-of-directive">List of directive</h3>
+<ul>
+<li>&lt;html ng-app=&quot;nameoftheapp&quot;&gt; -&gt; define the name of the module to use (always on html ? check it)</li>
+<li>ng-controller=&quot;Nameofthecontroller as nameyouwanttouseintheHTML&quot; -&gt; define a controller on the element</li>
+<li>ng-show = &quot;Boolean property&quot; -&gt; show the element when the property is set to true</li>
+<li>ng-hide = &quot;Boolean property&quot; -&gt; hide the element when the property is set to true</li>
+<li>ng-repeat = &quot;object in controllername.objects&quot; -&gt; repeat the element for each object in the array of object</li>
+<li>ng-src = &quot;{{source image of the object}}&quot; -&gt; define the source of an &lt;img&gt; tag through angular, thus permiting dynamic data (otherwise the browser would have rendered the source before the expression evaluates) </li>
+<li>ng-init = &quot;expressionusedinthescope&quot; -&gt; define an initial value for a variable defined in the scope</li>
+<li>ng-class=&quot;{theclass:value to check}&quot; -&gt; apply the specified class if a specific expression is matched</li>
+<li>ng-model=&quot;object.property&quot; -&gt; bind the current form value to a parameter of object (double data binding)</li>
+<li>ng-submit=&quot;controllerfunction&quot; -&gt; binds a function when THE FORM is submitted via the Submit button</li>
+<li>ng-include=&quot;&#39;nameofthe.file(as a string, notice the complementary brackets)&#39;&quot; -&gt; include the selected file, ng-include expects a variable with the name, so the complementary brackets are here to pass directly a name in the html</li>
+</ul>
+<p>| = filters -&gt; pass data form the preceding function or controller to the filter</p>
+<h3 id="list-of-filters">List of Filters</h3>
+<ul>
+<li>| orderBy=&#39;property or -property&#39;</li>
+<li>| </li>
+</ul>
+<h2 id="js">JS</h2>
+<h3 id="1-modules">1. Modules</h3>
+<p>Always wrap the code in a closure ex : (function(){ /<em>code</em>/ })</p>
+<p>Initialize angular by defining your module </p>
+<pre><code>var app = angular.module(&#39;/*name of the module as a String*/&#39;, [ /* dependencies of the module, if none, send an empty array */ ]);
+</code></pre><h3 id="2-controllers">2. Controllers</h3>
+<p>Define a controller on the current module </p>
+<pre><code>modulename.controller(&#39;nameofthecontroller as a String&#39;, function(){
+    what the controller do;
+});
+</code></pre><p>You can define object to be part of a controller by assigning them to it</p>
+<pre><code>
+modulename.controller(&#39;nameofthecontroller&#39;, function(){
+    this.nameoftheobject = object;
+})
+
+var object = {} or [] or &quot;Hello&quot;
+</code></pre><h3 id="3-directives">3. Directives</h3>
+<p>Allow to create custom tags in HTML with or without attaches controllers.
+Very useful for code clarification ans sanity</p>
+<p>in app.js </p>
+<pre><code>
+app.directive(&quot;productPanels&quot;, function(){
+    return {
+        restrict: &quot;E&quot;,
+        templateUrl: &quot;product-panels.html&quot;,
+        controller: function() {
+            //controller definition
+            this.tab = 1;
+
+            this.selectTab = function(setTab) {
+                this.tab = setTab;
+            };
+
+            this.isSelected = function(checkTab) {
+                return this.tab === checkTab;
+            };
+        },
+        //alias as in (ng-controller=&quot;PanelController as panel&quot;)
+        controllerAs:&quot;panels&quot;
+    };
+});
+</code></pre><p>in product-title.html</p>
+<pre><code>
+&lt;h1&gt;{{product.name}}&lt;/h1&gt; 
+&lt;em class=&quot;pull-right&quot;&gt; {{product.price | currency}}$ &lt;/em&gt;
+</code></pre><p>in index.html</p>
+<pre><code>
+&lt;product-title&gt;&lt;/product-title&gt;
+</code></pre>
+</body></html>
