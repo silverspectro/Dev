@@ -1,24 +1,38 @@
 (function(){
-	var app = angular.module('site', [ 'ngRoute' ]);
+	var app = angular.module('site', [ 'ngRoute', 'markdown' ]);
 
-	//custom filter creating For loop with ng-repeat
 
 	app.controller('SiteController' , [ '$scope','$http', '$routeParams', function($scope, $http, $routeParams){
 		this.nav = nav;
 		this.current = 1;
 		var site = this;
+		this.isEdited = false;
 
 		site.articles = [ ];
-		site.articleId = 0;
+		site.articleId = 1;
 
-		//if($routeParams)site.articleId = parseInt($routeParams.id);
-
-		console.log(site.articleId);
-
-		$http.get('http://localhost:8080/articles.json').success(function(articles){
+		$http.get('https://cjsonserver.herokuapp.com/articles').success(function(articles){
 			site.articles = articles;
 			//if($routeParams)site.articleId = parseInt($routeParams.id);
 		});
+
+		this.submitData = function (article)
+		{
+			var url = "https://cjsonserver.herokuapp.com/articles/";
+			if(article.id) {
+				article.id = article.id;
+			}
+			console.log(article);
+			$http.post(url, article)
+				.success(function (article, status, headers)
+				{
+					console.log(article);
+				})
+				.error(function (data, status, headers)
+				{
+					 console.log("SUBMIT ERROR");
+				});
+		};
 
 		this.selectTab = function(currentNav) {
 			this.current = currentNav;
@@ -31,10 +45,26 @@
 		this.selectArticle = function(articleId) {
 			this.articleId = articleId;
 		};
+
+		this.articleEdition = function(element, $event) {
+			if($event.target) {
+				console.log(site.articleId);
+				//console.log($event.target);
+				return this.isEdited = true;
+			}
+		};
+
+		this.postArticle = function(article) {
+			/*$http.post('http://localhost:8080/articles.json', site.articles).success(function(articles){
+				site.articles = articles;
+			});*/
+			site.submitData(article);
+			return this.isEdited = false;
+		};
+
 	} ]);
 
-
-app.config(['$routeProvider',function($routeProvider) {
+	app.config(['$routeProvider',function($routeProvider) {
     $routeProvider.
       when('/articles/:id', {
         templateUrl: 'directives/ind-article.html',
@@ -44,11 +74,11 @@ app.config(['$routeProvider',function($routeProvider) {
 				templateUrl: 'directives/home-feature.html',
 				controller:"SiteController"
 			}).
-			when('/Main', {
+			when('/main', {
 				templateUrl: 'directives/home-feature.html',
 				controller:"SiteController"
 			}).
-			when('/Articles', {
+			when('/articles', {
 				templateUrl: 'directives/list-articles.html',
 				controller:"SiteController"
 			}).
@@ -58,28 +88,29 @@ app.config(['$routeProvider',function($routeProvider) {
 			//$locationProvider.html5Mode(true);
   }]);
 
-app.filter('makeRange', function() {
-      return function(input) {
-      	if(!input)return false;
-          var lowBound, highBound;
-          switch (input.length) {
-          case 1:
-              lowBound = 0;
-              highBound = parseInt(input[0]) - 1;
-              break;
-          case 2:
-              lowBound = parseInt(input[0]);
-              highBound = parseInt(input[1]);
-              break;
-          default:
-              return input;
-          }
-          var result = [];
-          for (var i = lowBound; i <= highBound; i++)
-              result.push(i);
-          return result;
-      };
-  });
+	//custom filter creating For loop with ng-repeat
+	app.filter('makeRange', function() {
+	    return function(input) {
+	    	if(!input)return false;
+	        var lowBound, highBound;
+	        switch (input.length) {
+	        case 1:
+	            lowBound = 0;
+	            highBound = parseInt(input[0]) - 1;
+	            break;
+	        case 2:
+	            lowBound = parseInt(input[0]);
+	            highBound = parseInt(input[1]);
+	            break;
+	        default:
+	            return input;
+	        }
+	        var result = [];
+	        for (var i = lowBound; i <= highBound; i++)
+	            result.push(i);
+	        return result;
+	    };
+	});
 
     //end custom filter
 
@@ -104,21 +135,32 @@ app.filter('makeRange', function() {
 			}
 		});
 
+		app.directive('markdown', function() {
+			return {
+				restrict: 'E',
+				link: function postLink(scope, elem, attrs) {
+					var newContents = markdown.toHTML(elem.html());
+					console.log(newContents);
+					elem.replaceWith(newContents);
+				}
+			}
+		});
+
 
   var nav = [
     {
     	id: 1,
-    	name:"Main",
+    	name:"main",
     	url:"index.html"
     },
     {
     	id: 2,
-    	name:"Articles",
+    	name:"articles",
     	url:"article.html"
     },
 		{
 			id: 3,
-			name:"Projects",
+			name:"projects",
 			url:"project.html"
 		}
   ];

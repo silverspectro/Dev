@@ -1,5 +1,23 @@
 <div class="container">
-  <h2>{{site.articles[site.articleId-1].title}}</h2>
-  <small>- by {{site.articles[site.articleId-1].author}}</small>
-  {{site.articles[site.articleId-1].body}}
+  <div ng-hide="site.isEdited">
+    <h2 ng-click="site.articleEdition(site.articles[site.articleId-1].title, $event)">{{site.articles[site.articleId-1].title}}</h2>
+    <small ng-click="site.articleEdition(site.articles[site.articleId-1].author, $event)">by: {{site.articles[site.articleId-1].author}} on {{site.articles[site.articleId-1].createdOn | date:"fullDate"}}</small>
+    <article ng-click="site.articleEdition(site.articles[site.articleId-1].body, $event)" ng-bind-html="site.articles[site.articleId-1].body | markdown"></article>
+  </div>
+  <form ng-show="site.isEdited" name="articleForm" id="articleForm" ng-submit="site.postArticle(site.articles[site.articleId-1])" novalidate>
+    <fieldset class="form-group">
+      <label>by:</label>
+      <input class="form-control" placeholder="jimmyDean@example.org" title="Email" ng-model="site.articles[site.articleId-1].author" type="email" required/>
+    </fieldset>
+    <fieldset class="form-group">
+      <input type="text" class="form-control" placeholder="Title" title="Review" ng-model="site.articles[site.articleId-1].title" required></textarea>
+    </fieldset>
+    <fieldset class="form-group">
+      <textarea class="form-control" placeholder="Write a short review of the product..." title="Review" ng-model="site.articles[site.articleId-1].body" required></textarea>
+    </fieldset>
+    <div> articleForm is {{articleForm.$valid}}</div>
+    <fieldset class="form-group">
+      <input class="btn btn-primary pull-right" type="submit" value="Submit Review"/>
+    </fieldset>
+  </form>
 </div>
