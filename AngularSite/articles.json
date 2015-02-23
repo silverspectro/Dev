@@ -1,0 +1,70 @@
+[
+  {
+    "title": "Article 1",
+    "id": 1,
+    "author": "Ciro",
+    "description": "Description of article 1",
+    "canPurchase": true,
+    "soldOut": false,
+    "createdOn": 1397490980837,
+    "body": " Yeah i'm article 1's content",
+    "images": [
+      {
+        "full": "images/dodecahedron-01-full.jpg",
+        "thumb": "images/dodecahedron-01-thumb.jpg"
+      }
+    ],
+    "comments": [
+      {
+        "stars": [
+          5
+        ],
+        "body": "Comment 1 of article 1",
+        "author": "ciro@decaro.com",
+        "createdOn": 1397490980837
+      },
+      {
+        "stars": [
+          2
+        ],
+        "body": "comment 2 of article 1",
+        "author": "ciro@decaro.com",
+        "createdOn": 1397490980837
+      }
+    ]
+  },
+  {
+    "title": "Article 2",
+    "id": 2,
+    "author": "Ciro",
+    "description": "Description of article 2",
+    "canPurchase": true,
+    "soldOut": false,
+    "createdOn": 1397490980837,
+    "body": " Yeah i'm article 2's content",
+    "images": [
+      {
+        "full": "images/dodecahedron-01-full.jpg",
+        "thumb": "images/dodecahedron-01-thumb.jpg"
+      }
+    ],
+    "comments": [
+      {
+        "stars": [
+          1
+        ],
+        "body": "comment one of article 2",
+        "author": "ciro@decaro.com",
+        "createdOn": 1397490980837
+      },
+      {
+        "stars": [
+          3
+        ],
+        "body": "comment 2 of article 2",
+        "author": "ciro@decaro.com",
+        "createdOn": 1397490980837
+      }
+    ]
+  }
+]

@@ -1,0 +1,27 @@
+<!doctype html>
+<html ng-app="site">
+	<head>
+		<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+		<style>
+		.ng-invalid.ng-dirty {
+			border-color: #FA787E;
+		}
+		.ng-valid.ng-dirty {
+			border-color: #78FA89;
+		}
+		</style>
+	</head>
+	<body ng-controller="SiteController as site">
+		<div class="container">
+			<ul class="nav nav-tabs">
+				<li ng-repeat="nav in site.nav" ng-class="{ active:site.isSelected(nav.id) }"><a href="#/{{nav.name}}" ng-click="site.selectTab(nav.id)">{{nav.name}}</a></li>
+			</ul>
+		</div>
+		<div ng-view>
+
+		</div>
+		<script type="text/javascript" src="bower_components/angular/angular.js"></script>
+		<script type="text/javascript" src="bower_components/angular/angular-route.min.js"></script>
+		<script type="text/javascript" src="js/app.js"></script>
+	</body>
+</html>
