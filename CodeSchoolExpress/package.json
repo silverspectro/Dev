@@ -1,0 +1,26 @@
+{
+  "name": "CodeSchoolExpress",
+  "version": "0.1.0",
+  "description": "Code School Express API course",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/silverspectro/Dev.git"
+  },
+  "author": "Ciro DE CARO",
+  "license": "CC-SA",
+  "bugs": {
+    "url": "https://github.com/silverspectro/Dev/issues"
+  },
+  "homepage": "https://github.com/silverspectro/Dev",
+  "dependencies": {
+    "body-parser": "^1.12.0",
+    "bootstrap": "^3.3.2",
+    "express": "^4.12.0",
+    "jquery": "^2.1.3",
+    "morgan": "^1.5.1"
+  }
+}
