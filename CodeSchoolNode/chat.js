@@ -21,7 +21,7 @@ var storeMessages = function(name, data) {
     if(err)return console.error(err);
     Message.find(function(err,messages){
         if(err)return console.error(err);
-        if(messages.length > 20)Message.where().findOneAndRemove(function(err,message){
+        if(messages.length > 10)Message.where().findOneAndRemove(function(err,message){
           if(err)return console.error(err);
           console.log(messages.length);
         });
@@ -31,6 +31,7 @@ var storeMessages = function(name, data) {
 
 var storeClient = function(name) {
   clients.push(name);
+  //console.log(clients);
 }
 
 app.get("/", function(req, res){
@@ -52,8 +53,11 @@ io.on("connection", function(client){
   });
 
   client.on("join", function(name){
-    clients.forEach(function(clients){
-      client.emit("messages", clients + " is connected");
+    if(clients.indexOf(name) === -1)storeClient(name);
+    clients.forEach(function(single_client){
+      if(clients.indexOf(single_client) === -1)client.emit("messages", single_client + " is connected");
+      client.emit("join", single_client, clients);
+      client.broadcast.emit("join", single_client, clients);
     })
     /*messages.forEach(function(message){
       client.emit("messages", message.name + ":" + message.data);
@@ -66,9 +70,19 @@ io.on("connection", function(client){
     client.nickname = name;
     client.broadcast.emit("messages", client.nickname + " connected");
     client.emit("messages", client.nickname + " connected");
-    if(clients.indexOf(name) === -1)storeClient(name);
     console.log(client.nickname + " connected");
   });
+
+  client.on("disconnect", function(){
+
+    client.broadcast.emit("client disconnected", client.nickname);
+
+    var index = clients.indexOf(client.nickname);
+    //console.log(clients);
+    clients.splice(index, 1);
+    //console.log(index, client.nickname, clients);
+  });
+
 });
 
 

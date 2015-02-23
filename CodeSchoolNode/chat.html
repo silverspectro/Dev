@@ -12,9 +12,13 @@
       #messages { list-style-type: none; margin: 0; padding: 0; }
       #messages li { padding: 5px 10px; }
       #messages li:nth-child(odd) { background: #eee; }
+      #logged { position:absolute; top: 5%; right: 5%; width: 15%; height: auto; min-height: 10%; background-color: #999; border: 1px solid #000;}
     </style>
   </head>
   <body>
+    <div id="logged">
+
+    </div>
     <div style="height: 90%;overflow:hidden;">
       <ul id="messages"></ul>
     </div>
@@ -28,6 +32,7 @@
     var chat_form = document.getElementById("m");
     var btn = document.getElementById("btn");
     var messages = document.getElementById("messages");
+    var logged = document.getElementById("logged");
     var message = chat_form.value;
 
     function emit(message){
@@ -40,11 +45,32 @@
       nickname = prompt("what is your nickname");
 
       if(nickname !== null) {
-        socket.emit("join", nickname)
+        socket.emit("join", nickname);
       } else {
         nickname = prompt("what is your nickname");
       };
     });
+
+    socket.on("client disconnected", function(name) {
+      var temp = logged.getElementsByTagName("li");
+      var toRemove;
+      for(var el = 0; el < temp.length; el++) {
+        if(temp[el].innerHTML === name)toRemove = temp[el];
+      }
+      if(toRemove)logged.removeChild(toRemove);
+    });
+
+    socket.on("join", function(name, clients){
+      logged.innerHTML = "";
+
+      for(var x = 0; x < clients.length; x++) {
+        var log = document.createElement("li");
+        log.innerHTML = clients[x];
+        logged.appendChild(log);
+      }
+
+    });
+
 
     function emitMessage(data) {
       var mess = document.createElement("li");
